@@ -11,4 +11,17 @@ class ProductCategoryRepository extends BaseRepository implements ProductCategor
     {
         return Category::class;
     }
+
+    public function getFeatureProducts()
+    {
+        return $this->model
+                    ->whereHas('products', function($query) {
+                        $query->where('quantity', '>', 0);
+                    })
+                    ->with(['products' => function($query) {
+                        $query->where('quantity', '>', 0);
+                    }])
+                    ->orderBy('id', 'asc')
+                    ->get();
+    }
 }

@@ -1,6 +1,6 @@
 @extends('front.layout.master')
 
-@section('title', 'Checkout')
+@section('title', 'Đặt hàng')
 
 @section('body')
 
@@ -13,24 +13,22 @@
                         <div class="col-lg-6">
                             <h4>Chi tiết đơn hàng</h4>
                             <div class="row">
-                                
-                                <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id ?? '' }}">
-
+                                <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id}}">
                                 <div class="col-lg-12">
                                     <label for="first">Họ và tên <span style="color: red;">*</span></label>
-                                    <input type="text" id="first" name="fullname" value="{{ Auth::user()->name ?? '' }}">
+                                    <input type="text" id="first" name="fullname" required>
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="street">Địa chỉ <span style="color: red;">*</span></label>
-                                    <input type="text" id="street" class="street-first" name="address" value="{{ Auth::user()->address ?? '' }}">
+                                    <input type="text" id="street" class="street-first" name="address" required>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="email">Email <span style="color: red;">*</span></label>
-                                    <input type="text" id="email" name="email" value="{{ Auth::user()->email ?? '' }}">
+                                    <input type="text" id="email" name="email" value="{{ Auth::user()->email ?? '' }}" required>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="phone">Số điện thoại <span style="color: red;">*</span></label>
-                                    <input type="text" id="phone" name="phone" value="{{ Auth::user()->phone ?? '' }}">
+                                    <input type="text" id="phone" name="phone" required>
                                 </div>
                             </div>
                         </div>
@@ -44,11 +42,11 @@
                                         @foreach ($carts as $cart)
                                             <li class="fw-normal">
                                                 {{ $cart->name }} X {{ $cart->quantity }}
-                                                <span>{{ $cart->price * $cart->quantity }} vnđ</span>
+                                                <span>{{ number_format($cart->price * $cart->quantity, 0, '', ',') }}₫</span>
                                             </li>
                                         @endforeach
 
-                                        <li class="total-price">Tổng tiền <span>{{ $total }} vnđ</span></li>
+                                        <li class="total-price">Tổng tiền <span>{{ $total }}₫</span></li>
                                     </ul>
                                     <div class="payment-check">
                                         <div class="pc-item">

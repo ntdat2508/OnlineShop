@@ -63,23 +63,12 @@
                     </div>
                     <div class="col-lg-7 col-md-7">
                         <form action="shop">
-                            <div class="advanced-search relative">
+                            <div class="advanced-search">
                                 <div class="category-btn">Tên sản phẩm</div>
                                 <div class="input-group">
-                                    <input name="search" type="text" placeholder="Tìm kiếm...">
-                                    <button class="pointer-event-none"><i class="ti-search"></i></button>
+                                    <input name="search" value="{{ request('search') }}" type="text" placeholder="Tìm kiếm...">
+                                    <button type="submit"><i class="ti-search"></i></button>
                                 </div>
-                            </div>
-
-                            <div class="search-result">
-                                <ul>
-                                    <li class="">Sản phẩm 1</li>
-                                    <li class="">Sản phẩm 2</li>
-                                    <li class="">Sản phẩm 3</li>
-                                    <li class="">Sản phẩm 4</li>
-                                    <li class="">Sản phẩm 5</li>
-                                    <li class="hidden">Sản phẩm tìm kiếm không tồn tại</li>
-                                </ul>
                             </div>
                         </form>
                     </div>
@@ -108,7 +97,7 @@
                                                         </td>
                                                         <td class="si-text">
                                                             <div class="product-selected">
-                                                                <p>{{ $cart->price }} vnđ x {{ $cart->quantity }}</p>
+                                                                <p>{{ number_format($cart->price, 0, '', ',') }}₫ x {{ $cart->quantity }}</p>
                                                                 <h6>{{ $cart->name }}</h6>
                                                             </div>
                                                         </td>
@@ -123,11 +112,14 @@
                                     </div>
                                     <div class="select-total">
                                         <span>Tổng tiền:</span>
-                                        <h5>{{ Cart::total() }} vnđ</h5>
+                                        @php
+                                            $formattedTotal = strpos(Cart::total(), '.') !== false ? rtrim(rtrim(Cart::total(), '0'), '.') : Cart::total();
+                                        @endphp
+                                        <h5>{{ $formattedTotal }}₫</h5>
                                     </div>
                                     <div class="select-button">
                                         <a href="./cart" class="primary-btn view-card">Giỏ hàng</a>
-                                        <a href="./checkout" class="primary-btn check-out">Thanh toán</a>
+                                        <a href="./checkout" class="primary-btn check-out">Đặt hàng</a>
                                     </div>
                                 </div>
                             </li>
@@ -141,24 +133,16 @@
                 <div class="nav-depart">
                     <div class="depart-btn">
                         <i class="ti-menu"></i>
-                        <span>All departments</span>
+                        <span>Tất cả danh mục </span>
                     </div>
                 </div>
                 <nav class="nav-menu">
                     <ul>
                         <li class="{{ request()->segment(1) == '' ? 'active' : '' }}"><a href="./">Trang chủ</a></li>
-                        <li class="{{ request()->segment(1) == 'shop' ? 'active' : '' }}"><a
-                                href="{{ route('shop') }}">Sản phẩm</a></li>
-                        <li>
-                            <a href="">Danh mục</a>
-                            <ul class="dropdown">
-                                <li><a href="">Thời trang nam</a></li>
-                                <li><a href="">Thời trang nữ</a></li>
-                                <li><a href="">Thời trang trẻ em</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./account/my-order">Đơn hàng</a></li>
-                        <li><a href="contact.html">Liên hệ</a></li>
+                        <li class="{{ request()->segment(1) == 'shop' ? 'active' : '' }}"><a href="./shop">Sản phẩm</a></li>
+                        <li class="{{ request()->segment(2) == 'my-order' ? 'active' : '' }}"><a href="./account/my-order">Đơn hàng</a></li>
+                        <li><a href="#">Bài đăng</a></li>
+                        <li class="{{ request()->segment(1) == 'contact' ? 'active' : '' }}"><a href="./contact">Liên hệ</a></li>
                     </ul>
                 </nav>
             </div>
@@ -187,33 +171,33 @@
                 </div>
                 <div class="col-lg-2 offset-lg-1">
                     <div class="footer-widget">
-                        <h5>Information</h5>
+                        <h5>THÔNG TIN</h5>
                         <ul>
-                            <li><a href="">About Us</a></li>
-                            <li><a href="">Checkout</a></li>
-                            <li><a href="">Contact</a></li>
-                            <li><a href="">Service</a></li>
+                            <li><a href="#">Về chúng tôi</a></li>
+                            <li><a href="#">Thanh toán</a></li>
+                            <li><a href="#">Liên hệ</a></li>
+                            <li><a href="#">Dịch vụ</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="footer-widget">
-                        <h5>My Account</h5>
+                        <h5>CHÍNH SÁCH</h5>
                         <ul>
-                            <li><a href="">About Us</a></li>
-                            <li><a href="">Checkout</a></li>
-                            <li><a href="">Contact</a></li>
-                            <li><a href="">Service</a></li>
+                            <li><a href="#">Chính sách bảo mật</a></li>
+                            <li><a href="#">Quy chế hoạt động</a></li>
+                            <li><a href="#">Chính sách vận chuyển</a></li>
+                            <li><a href="#">Chính sách trả hàng và hoàn tiền</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="newslatter-item">
-                        <h5>Join our newsletter now</h5>
-                        <p>Get email updates about our latest shop</p>
+                        <h5>Tham gia bản tin của chúng tôi</h5>
+                        <p>Nhận email cập nhật về cửa hàng mới nhất</p>
                         <form action="#" class="subscribe-form">
-                            <input type="text" placeholder="enter your mail">
-                            <button>Subscribe</button>
+                            <input type="text" placeholder="Nhập email">
+                            <button>Đăng ký</button>
                         </form>
                     </div>
                 </div>

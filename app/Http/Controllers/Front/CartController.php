@@ -20,33 +20,31 @@ class CartController extends Controller
     {
         $carts = Cart::content();
         $total = Cart::total();
-        $subtotal = Cart::subtotal();
 
-        return view('front.shop.cart', compact('carts', 'total', 'subtotal'));
+        return view('front.shop.cart', compact('carts', 'total'));
     }
 
     public function add(Request $request)
     {
-        if ($request->ajax()) {
-            $product = $this->productService->find($request->productId);
+        
+        $product = $this->productService->find($request->productId);
 
-            $response['cart'] = Cart::add([
-                'id' => $product->id,
-                'name' => $product->name,
-                'quantity' => 1,
-                'price' => $product->price,
-                'options' => [
-                    'images' => $product->productImages,
-                ],
-            ]);
+        $response['cart'] = Cart::add([
+            'id' => $product->id,
+            'name' => $product->name,
+            'quantity' => 1,
+            'price' => $product->price,
+            'options' => [
+                'images' => $product->productImages,
+            ],
+        ]);
 
-            $response['count'] = Cart::count();
-            $response['total'] = Cart::total();
+        // $product->quantity -= 1;
+        // $product->save();
+        $response['count'] = Cart::count();
+        $response['total'] = Cart::total();
 
-            return $response;
-        }
-
-        return back();
+        return $response;
     }
 
     public function delete(Request $request)
@@ -56,7 +54,6 @@ class CartController extends Controller
 
             $response['count'] = Cart::count();
             $response['total'] = Cart::total();
-            $response['subtotal'] = Cart::subtotal();
 
             return $response;
         }
@@ -71,7 +68,6 @@ class CartController extends Controller
 
             $response['count'] = Cart::count();
             $response['total'] = Cart::total();
-            $response['subtotal'] = Cart::subtotal();
 
             return $response;
         }

@@ -45,19 +45,6 @@ class ProductImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request, $id)
-    // {
-    //     $data = $request->all();
-
-    //     if ($request->hasFile('image')) {
-    //         $data['path'] = Common::uploadFile($request->file('image'), 'front/img/products');
-    //         unset($data['image']);
-
-    //         ProductImage::create($data);
-    //     }
-
-    //     return redirect()->back();
-    // }
 
     public function store(Request $request, $id)
     {

@@ -1,6 +1,6 @@
 @extends('front.layout.master')
 
-@section('title', 'Login')
+@section('title', 'Đăng nhập')
 
 @section('body')
 

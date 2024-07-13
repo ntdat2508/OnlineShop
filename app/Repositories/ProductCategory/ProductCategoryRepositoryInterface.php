@@ -6,4 +6,5 @@ use App\Repositories\RepositoryInterface;
 
 interface ProductCategoryRepositoryInterface extends RepositoryInterface
 {
+    public function getFeatureProducts();
 }

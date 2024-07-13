@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Category')
+@section('title', 'Nhãn hàng')
 
 @section('body')
     <!-- Main -->
@@ -26,7 +26,7 @@
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <form method="post" action="admin/brand/{{ $brand->id }}" enctype="multipart/form-data">
+                        <form method="post" action="admin/brand/{{ $brand->id }}">
                             @csrf
                             @method('PUT')
                             <div class="position-relative row form-group">

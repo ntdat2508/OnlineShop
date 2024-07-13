@@ -36,7 +36,7 @@ class AccountController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             return redirect()->intended('');
         } else {
-            return back()->with('notification', 'ERROR: Email hoặc mật khẩu không chính xác');
+            return back()->with('notification', 'Email hoặc mật khẩu không chính xác');
         }
     }
 
@@ -53,7 +53,7 @@ class AccountController extends Controller
 
     public function postRegister(Request $request) {
         if($request->password != $request->password_confirmation) {
-            return back()->with('notification', 'Error: Confirm password does not match');
+            return back()->with('notification', 'Mật khẩu và xác nhận mật khẩu không khớp');
         }
 
         $validatedData = $request->validate([
@@ -71,7 +71,7 @@ class AccountController extends Controller
 
         $this->userService->create($data);
 
-        return redirect('account/login')->with('notification', 'Register success! Please login');
+        return redirect('account/login')->with('notification', 'Đăng ký thành công!');
     }
 
     public function myOrderIndex() {

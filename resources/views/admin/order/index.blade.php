@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Order')
+@section('title', 'Đơn hàng')
 
 @section('body')
     <!-- Main -->
@@ -25,22 +25,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
-
-                    <div class="card-header">
-
-                        <form>
-                            <div class="input-group">
-                                <input type="search" name="search" id="search" value="{{ request('search') }}"
-                                    placeholder="Tìm kiếm" class="form-control">
-                                <span class="input-group-append">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-search"></i>&nbsp;
-                                        Tìm kiếm
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
 
                     <div class="table-responsive">
                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -71,7 +55,7 @@
                                                     <div class="widget-content-left flex2">
                                                         <div class="widget-heading">{{ $order->name }}</div>
                                                         <div class="widget-subheading opacity-7">
-                                                            {{ $order->orderDetails[0]->product->name }}
+                                                            {{ $order->orderDetails[0]->product->name }} ({{ displayColor($order->orderDetails[0]->product->color) }}, {{ $order->orderDetails[0]->product->size }})
                                                             @if (count($order->orderDetails) > 1)
                                                                 (và {{ count($order->orderDetails) }} sản phẩm khác)
                                                             @endif

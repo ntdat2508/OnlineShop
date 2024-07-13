@@ -14,4 +14,9 @@ class ProductCategoryService extends BaseService implements ProductCategoryServi
     {
         $this->repository = $productCategoryRepository;
     }
+
+    public function getFeatureProducts()
+    {
+        return $this->repository->getFeatureProducts();
+    }
 }

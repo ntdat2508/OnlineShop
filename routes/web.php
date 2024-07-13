@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProductDetailController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Front\AccountController;
 use App\Http\Controllers\Front\CartController;
@@ -26,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('contact', [HomeController::class, 'contact']);
 
 Route::prefix('account')->group(function() {
     Route::get('login', [AccountController::class, 'login']);
@@ -49,7 +49,6 @@ Route::prefix('admin')->group(function() {
         Route::resource('brand', BrandController::class);
         Route::resource('product', ProductController::class);
         Route::resource('product/{product_id}/image', ProductImageController::class);
-        Route::resource('product/{product_id}/detail', ProductDetailController::class);
         Route::resource('order', OrderController::class);
         Route::redirect('', 'admin/order');
         Route::post('logout', [AdminHomeController::class, 'logout']);
@@ -58,7 +57,7 @@ Route::prefix('admin')->group(function() {
 
 
 Route::prefix('shop')->group(function () {
-    Route::get('', [ShopController::class, 'index'])->name('shop');
+    Route::get('', [ShopController::class, 'index']);
     Route::get('product/{id}', [ShopController::class, 'show']);
     Route::post('product/{id}', [ShopController::class, 'postRating'])->middleware('CheckMemberLogin');
     Route::get('category/{categoryName}', [ShopController::class, 'category']);

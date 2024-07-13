@@ -26,11 +26,11 @@
                     <div class="col-lg-6">
                         <div class="checkout-content">
                             <a href="#" class="content-btn">
-                                Order ID:
+                                Mã đặt hàng:
                                 <b>#{{ $order->id }}</b>
                             </a>
                         </div>
-                        <h4>Biling details</h4>
+                        <h4>Chi tiết đơn hàng</h4>
                         <div class="row">
                             <div class="col-lg-12">
                                 <label for="first">Họ và tên</label>
@@ -67,12 +67,12 @@
                                     @foreach ($order->orderDetails as $orderDetail)
                                         <li class="fw-normal">
                                             {{ $orderDetail->product->name }} X {{ $orderDetail->quantity }}
-                                            <span>{{ $orderDetail->total }} vnđ</span>
+                                            <span>{{ number_format($orderDetail->total_price, 0, '', ',') }}₫</span>
                                         </li>
                                     @endforeach
 
                                     <li class="total-price">Tổng tiền
-                                        <span>{{ array_sum(array_column($order->orderDetails->toArray(), 'total')) }} vnđ</span>
+                                        <span>{{ number_format(array_sum(array_column($order->orderDetails->toArray(), 'total_price')), 0, '', ',') }}₫</span>
                                     </li>
                                 </ul>
                                 <div class="payment-check">

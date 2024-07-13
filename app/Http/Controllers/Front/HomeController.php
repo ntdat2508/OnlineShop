@@ -3,18 +3,26 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Services\Product\ProductServiceInterface;
+use App\Services\ProductCategory\ProductCategoryService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    private $productService;
-    public function __construct(ProductServiceInterface $productService)
+    private $productCategoryService;
+
+    public function __construct(ProductCategoryService $productCategoryService)
     {
-        $this->productService = $productService;
+        $this->productCategoryService = $productCategoryService;
     }
-    public function index() {
-        $featureProducts = $this->productService->getFeaturedProduct();
+
+    public function index()
+    {
+        $featureProducts = $this->productCategoryService->getFeatureProducts();
+
         return view('front.index', compact('featureProducts'));
+    }
+
+    public function contact() {
+        return view('front.contact');
     }
 }

@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Order')
+@section('title', 'Đơn hàng')
 
 @section('body')
     <!-- Main -->
@@ -54,7 +54,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="widget-content-left flex2">
-                                                            <div class="widget-heading">{{ $orderDetail->product->name }}</div>
+                                                            <div class="widget-heading">{{ $orderDetail->product->name }} ({{ displayColor($orderDetail->product->color) }}, {{ $orderDetail->product->size }})</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -62,10 +62,8 @@
                                             <td class="text-center">
                                                 {{ $orderDetail->quantity }}
                                             </td>
-                                            <td class="text-center">{{ $orderDetail->amount }} vnđ</td>
-                                            <td class="text-center">
-                                                {{ $orderDetail->total_price }} vnđ
-                                            </td>
+                                            <td class="text-center">{{ number_format($orderDetail->amount, 0, '', ',') }}₫</td>
+                                            <td class="text-center">{{ number_format($orderDetail->total_price, 0, '', ',') }}₫</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -81,7 +79,7 @@
                                 Họ và tên
                             </label>
                             <div class="col-md-9 col-xl-8">
-                                <p>{{ $order->name }}</p>
+                                <p>{{ $order->fullname }}</p>
                             </div>
                         </div>
 
@@ -120,14 +118,6 @@
                                 <div class="badge badge-dark mt-2">
                                     {{ App\Utilities\Constant::$order_status[$order->status] }}
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="position-relative row form-group">
-                            <label for="description"
-                                class="col-md-3 text-md-right col-form-label">Mô tả</label>
-                            <div class="col-md-9 col-xl-8">
-                                <p>{{ $order->description }}</p>
                             </div>
                         </div>
                     </div>

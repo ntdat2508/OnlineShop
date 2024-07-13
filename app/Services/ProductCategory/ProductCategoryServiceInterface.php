@@ -6,4 +6,5 @@ use App\Services\ServiceInterface;
 
 interface ProductCategoryServiceInterface extends ServiceInterface
 {
+    public function getFeatureProducts();
 }

@@ -1,6 +1,6 @@
 @extends('front.layout.master')
 
-@section('title', 'My Order')
+@section('title', 'Đơn hàng')
 
 @section('body')
 
@@ -30,7 +30,7 @@
                                     <th>Ảnh</th>
                                     <th class="p-name">Tên sản phẩm</th>
                                     <th>Tổng giá</th>
-                                    <th>Chi tiết</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,10 +45,10 @@
                                             {{ $order->orderDetails[0]->product->name }}
 
                                             @if (count($order->orderDetails) > 1)
-                                                (and {{ count($order->orderDetails) }} other products)</h5>
+                                                (và {{ count($order->orderDetails) }} sản phẩm khác)</h5>
                                             @endif
                                     </td>
-                                    <td class="total-price first-row">{{ array_sum(array_column($order->orderDetails->toArray(), 'total')) }} vnđ</td>
+                                    <td class="total-price first-row">{{ number_format(array_sum(array_column($order->orderDetails->toArray(), 'total_price')), 0, '', ',') }}₫</td>
                                     <td class="first-row">
                                         <a href="./account/my-order/{{ $order->id }}" class="btn">Chi tiết</a>
                                     </td>

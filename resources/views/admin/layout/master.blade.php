@@ -8,10 +8,7 @@
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Admin</title>
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <meta name="description"
-        content="This is an example dashboard (CodeLean) created using build-in elements and components.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -32,12 +29,6 @@
                             <div class="widget-content-wrapper">
                                 <div class="widget-content-left">
                                     <div class="btn-group">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            class="p-0 btn">
-                                            <img width="42" class="rounded-circle"
-                                                src="front/img/user/{{ Auth::user()->avatar ?? 'default-avatar.jpg' }}" alt="">
-                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
-                                        </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
                                             class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
                                             <div class="dropdown-menu-header">
@@ -48,11 +39,6 @@
                                                     <div class="menu-header-content text-left">
                                                         <div class="widget-content p-0">
                                                             <div class="widget-content-wrapper">
-                                                                <div class="widget-content-left mr-3">
-                                                                    <img width="42" class="rounded-circle"
-                                                                        src="front/img/user/{{ Auth::user()->avatar ?? 'default-avatar.jpg' }}"
-                                                                        alt="">
-                                                                </div>
                                                                 <div class="widget-content-left">
                                                                     <div class="widget-heading">{{ Auth::user()->name ?? '' }}</div>
                                                                     <div class="widget-subheading opacity-8">{{ Auth::user()->email ?? '' }}</div>

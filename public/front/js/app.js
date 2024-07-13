@@ -1,12 +1,3 @@
-/*  ---------------------------------------------------
-    Template Name: codelean
-    Description: codelean eCommerce HTML Template
-    Author: CodeLean
-    Author URI: https://CodeLean.vn/
-    Version: 1.0
-    Created: CodeLean
----------------------------------------------------------  */
-
 "use strict";
 
 (function ($) {
@@ -86,33 +77,6 @@
         },
     });
 
-    /*------------------
-       logo Carousel
-    --------------------*/
-    $(".logo-carousel").owlCarousel({
-        loop: false,
-        margin: 30,
-        nav: false,
-        items: 5,
-        dots: false,
-        navText: [
-            '<i class="ti-angle-left"></i>',
-            '<i class="ti-angle-right"></i>',
-        ],
-        smartSpeed: 1200,
-        autoHeight: false,
-        mouseDrag: false,
-        autoplay: true,
-        responsive: {
-            0: {
-                items: 3,
-            },
-            768: {
-                items: 5,
-            },
-        },
-    });
-
     /*-----------------------
        Product Single Slider
     -------------------------*/
@@ -131,71 +95,6 @@
         autoplay: true,
     });
 
-    /*------------------
-        CountDown
-    --------------------*/
-    // For demo preview
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = today.getFullYear();
-
-    if (mm == 12) {
-        mm = "01";
-        yyyy = yyyy + 1;
-    } else {
-        mm = parseInt(mm) + 1;
-        mm = String(mm).padStart(2, "0");
-    }
-    var timerdate = mm + "/" + dd + "/" + yyyy;
-    // For demo preview end
-
-    console.log(timerdate);
-
-    // Use this for real timer date
-    /* var timerdate = "2020/01/01"; */
-
-    $("#countdown").countdown(timerdate, function (event) {
-        $(this).html(
-            event.strftime(
-                "<div class='cd-item'><span>%D</span> <p>Days</p> </div>" +
-                    "<div class='cd-item'><span>%H</span> <p>Hrs</p> </div>" +
-                    "<div class='cd-item'><span>%M</span> <p>Mins</p> </div>" +
-                    "<div class='cd-item'><span>%S</span> <p>Secs</p> </div>"
-            )
-        );
-    });
-
-    /*----------------------------------------------------
-     Language Flag js 
-    ----------------------------------------------------*/
-    $(document).ready(function (e) {
-        //no use
-        try {
-            var pages = $("#pages")
-                .msDropdown({
-                    on: {
-                        change: function (data, ui) {
-                            var val = data.value;
-                            if (val != "") window.location = val;
-                        },
-                    },
-                })
-                .data("dd");
-
-            var pagename = document.location.pathname.toString();
-            pagename = pagename.split("/");
-            pages.setIndexByValue(pagename[pagename.length - 1]);
-            $("#ver").html(msBeautify.version.msDropdown);
-        } catch (e) {
-            // console.log(e);
-        }
-        $("#ver").html(msBeautify.version.msDropdown);
-
-        //convert
-        $(".language_drop").msDropdown({ roundedBorder: false });
-        $("#tech").data("dd");
-    });
     /*-------------------
 		Range Slider
 	--------------------- */
@@ -268,29 +167,6 @@
         var rowId = $button.parent().find("input").data("rowid");
         updateCart(rowId, newVal);
     });
-
-    /*-------------------
-		Bo loc san pham o trang chu
-	--------------------- */
-    const product_men = $(".product-slider.men");
-    const product_women = $(".product-slider.women");
-
-    $(".filter-control").on("click", ".item", function () {
-        const $item = $(this);
-        const filter = $item.data("tag");
-        const category = $item.data("category");
-
-        $item.siblings().removeClass("active");
-        $item.addClass("active");
-
-        if (category === "men") {
-            product_men.owlcarousel2_filter(filter);
-        }
-
-        if (category === "women") {
-            product_women.owlcarousel2_filter(filter);
-        }
-    });
 })(jQuery);
 
 function addCart(productId) {
@@ -351,11 +227,11 @@ function addCart(productId) {
                 cartHover_tbody.append(newItem);
             }
 
-            alert("add successful" + response["cart"].name);
-            console.log(response);
+            alert("Thêm sản phẩm " + response["cart"].name + " vào giỏ hàng thành công");
+            window.location.reload();
         },
         error: function (response) {
-            alert("fail");
+            alert("Thêm sản phẩm vào giỏ hàng thất bại");
             console.log(response);
         },
     });
@@ -389,7 +265,7 @@ function removeCart(rowId) {
             console.log(response);
         },
         error: function (response) {
-            alert("fail");
+            alert("Xoá sản phẩm khỏi giỏ hàng thất bại");
             console.log(response);
         },
     });
@@ -444,13 +320,9 @@ function updateCart(rowId, quantity) {
 
             $(".subtotal span").text("$" + response["subtotal"]);
             $(".cart-total span").text("$" + response["total"]);
-
-            // alert("update successful " + response["cart"].name);
-            // console.log(response);
         },
         error: function (response) {
-            // alert("fail");
-            // console.log(response);
+            console.log(response);
         },
     });
 }

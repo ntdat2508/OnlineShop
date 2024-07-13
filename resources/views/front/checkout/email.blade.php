@@ -87,26 +87,26 @@
                                 <thead>
                                     <tr>
                                         <th style="padding: 5px 0;">Sản phẩm</th>
-                                        <th style="padding: 5px 20px 5px 0; text-align: right;">Tổng giá</th>
+                                        <th style="padding: 5px 20px 5px 0; text-align: right;">Giá</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($order->orderDetails as $orderDetail)
                                         <tr>
                                             <td style="border-top: 1px solid #dee2e6; padding: 5px 0;">
-                                                {{ $orderDetail->product->name . ' (x' . $orderDetail->qty . ')' }}
+                                                {{ $orderDetail->product->name . ' (x' . $orderDetail->quantity . ')' }}
                                             </td>
                                             <td
                                                 style="border-top: 1px solid #dee2e6; padding: 5px 20px 5px 0; text-align: right;">
-                                                {{ $orderDetail->total }} vnđ
+                                                {{ number_format($orderDetail->total_price, 0, '', ',') }}₫
                                             </td>
                                         </tr>
                                     @endforeach
                                     <hr style="border-top: 1px solid #0000001a;">
                                     <tr style="font-size: 18px;">
-                                        <td><b>TOTAL</b></td>
+                                        <td><b>Tổng tiền</b></td>
                                         <td class="pr-3 text-right" style="text-align: right; padding-right: 20px;">
-                                            <b>{{ $total }} $</b>
+                                            <b>{{ $total }} ₫</b>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -118,7 +118,7 @@
                 <div class="row mt-2 mb-4" style="margin-top: 15px; margin-bottom: 25px;">
                     <div class="container-fluid">
                         <div class="row pl-3 py-2" style="background-color: #f4f8fd; padding: 10px 0 10px 20px;">
-                            <b style="color: #00509d; font-size: 18px;">More information</b>
+                            <b style="color: #00509d; font-size: 18px;">Thông tin thêm</b>
                         </div>
                         <div class="row pl-3 py-2" style="background-color: #fff; padding: 10px 20px;">
                             <p>Quý khách có thể kiểm tra hình thức bên ngoài của sản phẩm (nhãn hiệu, mẫu mã, màu sắc, số lượng,...) trước khi thanh toán và có thể từ chối nhận hàng nếu không hài lòng. Vui lòng không kích hoạt thiết bị điện-điện tử hoặc thử sản phẩm.</p>

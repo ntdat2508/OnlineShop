@@ -15,12 +15,18 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->string('color');
+            $table->string('size');
             $table->integer('quantity');
             $table->integer('price');
-            $table->integer('brand_id')->unsigned();
-            $table->integer('category_id')->unsigned();
+            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('tag');
             $table->timestamps();
+    
+            // Thêm khóa ngoại cho brand_id
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

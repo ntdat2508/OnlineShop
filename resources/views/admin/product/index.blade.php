@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Product')
+@section('title', 'Sản phẩm')
 
 @section('body')
     <!-- Main -->
@@ -34,28 +34,14 @@
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
 
-                    <div class="card-header">
-
-                        <form>
-                            <div class="input-group">
-                                <input type="search" name="search" id="search" value="{{ request('search') }}"
-                                    placeholder="Tìm kiếm..." class="form-control">
-                                <span class="input-group-append">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-search"></i>&nbsp;
-                                        Tìm kiếm
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-
                     <div class="table-responsive">
                         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th class="text-center">STT</th>
                                     <th>Tên sản phẩm</th>
+                                    <th class="text-center">Màu sắc</th>
+                                    <th class="text-center">Size</th>
                                     <th class="text-center">Giá</th>
                                     <th class="text-center">Số lượng</th>
                                     <th class="text-center">Hành động</th>
@@ -83,7 +69,9 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-center">{{ $product->price }} vnđ</td>
+                                        <td class="text-center">{{ displayColor($product->color) }}</td>
+                                        <td class="text-center">{{ $product->size }}</td>
+                                        <td class="text-center">{{ number_format($product->price, 0, '', ',') }}₫</td>
                                         <td class="text-center">{{ $product->quantity }}</td>
                                         <td class="text-center">
                                             <a href="./admin/product/{{$product->id}}"

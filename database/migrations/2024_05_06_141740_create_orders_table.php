@@ -18,11 +18,14 @@ return new class extends Migration
             $table->char('phone', 10);
             $table->string('address');
             $table->string('payment_type');
-            $table->integer('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->integer('status');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.

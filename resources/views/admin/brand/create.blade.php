@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Category')
+@section('title', 'Nhãn hàng')
 
 @section('body')
     <!-- Main -->

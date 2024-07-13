@@ -1,6 +1,6 @@
 @extends('front.layout.master')
 
-@section('title', 'Product')
+@section('title', 'Sản phẩm')
 
 @section('body')
     <div class="product-shop spad page-details">
@@ -30,7 +30,10 @@
                             <div class="product-details">
                                 <div class="pd-title">
                                     <span>{{ $product->tag }}</span>
-                                    <h3>{{ $product->name }}</h3>
+                                    <h3>{{ $product->name }} 
+                                        <span>({{ displayColor($product->color) }}, {{ $product->size }})
+                                    </span>
+                                </h3>
                                     <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
                                 </div>
                                 <div class="pd-rating">
@@ -44,32 +47,26 @@
                                     <span>({{ count($product->productRatings) }})</span>
                                 </div>
                                 <div class="pd-desc">
-                                    <h4>{{ $product->price }} vnđ</h4>
+                                    <h4>{{ number_format($product->price, 0, '', ',') }}₫</h4>
                                 </div>
                                 <div class="pd-color">
-                                    <h6>Màu</h6>
+                                    <h6>Màu: </h6>
                                     <div class="pd-color-choose">
-                                        @foreach (array_unique(array_column($product->productDetails->toArray(), 'color')) as $productColor)
-                                            <div class="cc-item">
-                                                <input type="radio" id="cc-{{ $productColor }}">
-                                                <label for="cc-{{ $productColor }}" class="cc-{{ $productColor }}"></label>
-                                            </div>
-                                        @endforeach
+                                        <div class="cc-item">
+                                            <input type="radio" id="cc-{{ $product->color }}">
+                                            <label for="cc-{{ $product->color }}" class="cc-{{ $product->color }}"></label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="pd-size-choose">
-                                    @foreach (array_unique(array_column($product->productDetails->toArray(), 'size')) as $productSize)
-                                        <div class="sc-item">
-                                            <input type="radio" id="sm-{{ $productSize }}">
-                                            <label for="sm-{{ $productSize }}">{{ $productSize }}</label>
-                                        </div>
-                                    @endforeach
+                                    <h6>Size: </h6>
+                                    <div class="sc-item">
+                                        <input type="radio" id="sm-{{ $product->size }}">
+                                        <label for="sm-{{ $product->size }}">{{ $product->size }}</label>
+                                    </div>
                                 </div>
                                 <div class="quantity">
                                     <div class="quantity">
-                                        {{-- <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div> --}}
                                         <a href="javascript:addCart({{ $product->id }})" class="primary-btn pd-cart">Thêm vào giỏ hàng</a>
                                     </div>
                                 </div>
@@ -84,7 +81,7 @@
                             <ul class="nav" role="tablist">
                                 <li><a href="#tab-1" class="active" data-toggle="tab" role="tab">Mô tả</a></li>
                                 <li><a href="#tab-2" data-toggle="tab" role="tab">Chi tiết</a></li>
-                                <li><a href="#tab-3" data-toggle="tab" role="tab">Đánh giá của khách hàng
+                                <li><a href="#tab-3" data-toggle="tab" role="tab">Đánh giá
                                         ({{ count($product->productRatings) }})</a></li>
                             </ul>
                         </div>
@@ -99,7 +96,7 @@
                                     <div class="specification-table">
                                         <table>
                                             <tr>
-                                                <td class="p-catagory">Đánh giá của khách hàng</td>
+                                                <td class="p-catagory">Đánh giá</td>
                                                 <td>
                                                     <div class="pd-rating">
                                                         @for ($i = 1; $i <= 5; $i++)
@@ -117,7 +114,7 @@
                                             <tr>
                                                 <td class="p-catagory">Giá</td>
                                                 <td>
-                                                    <div class="p-price">{{ $product->price }} vnđ</div>
+                                                    <div class="p-price">{{ number_format($product->price, 0, '', ',') }}₫</div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -130,7 +127,7 @@
                                                 <td class="p-catagory">Size</td>
                                                 <td>
                                                     <div class="p-size">
-                                                        @foreach (array_unique(array_column($product->productDetails->toArray(), 'size')) as $productSize)
+                                                        @foreach (array_unique(array_column($product->toArray(), 'size')) as $productSize)
                                                             {{ $productSize }}
                                                         @endforeach
                                                     </div>
@@ -139,7 +136,7 @@
                                             <tr>
                                                 <td class="p-catagory">Màu</td>
                                                 <td>
-                                                    @foreach (array_unique(array_column($product->productDetails->toArray(), 'color')) as $productColor)
+                                                    @foreach (array_unique(array_column($product->toArray(), 'color')) as $productColor)
                                                         <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: {{ $productColor }};"></span>
 
                                                     @endforeach
@@ -183,13 +180,13 @@
 
                                                 <div class="row">
                                                     <div class="col-lg-6">
-                                                        <input type="text" placeholder="Họ và tên" name="name" value="{{ \Illuminate\Support\Facades\Auth::user()->name ?? null }}">
+                                                        <input type="text" placeholder="Họ và tên" name="name" value="{{ \Illuminate\Support\Facades\Auth::user()->name ?? null }}" required>
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <input type="text" placeholder="Email" name="email" value="{{ \Illuminate\Support\Facades\Auth::user()->email ?? null }}">
+                                                        <input type="text" placeholder="Email" name="email" value="{{ \Illuminate\Support\Facades\Auth::user()->email ?? null }}" required>
                                                     </div>
                                                     <div class="col-lg-12">
-                                                        <textarea placeholder="Bình luận" name="evaluate"></textarea>
+                                                        <textarea placeholder="Bình luận" name="evaluate" required></textarea>
 
                                                         <div class="personal-rating">
                                                             <h6>Đánh giá của bạn</h6>

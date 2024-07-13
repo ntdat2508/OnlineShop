@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Product')
+@section('title', 'Sản phẩm')
 
 @section('body')
     <!-- Main -->
@@ -51,14 +51,6 @@
 
                         <div class="position-relative row form-group">
                             <label for="brand_id"
-                                class="col-md-3 text-md-right col-form-label">Chi tiết sản phẩm</label>
-                            <div class="col-md-9 col-xl-8">
-                                <p><a href="./admin/product/{{ $product->id }}/detail">Quản lý chi tiết</a></p>
-                            </div>
-                        </div>
-
-                        <div class="position-relative row form-group">
-                            <label for="brand_id"
                                 class="col-md-3 text-md-right col-form-label">Nhãn hàng</label>
                             <div class="col-md-9 col-xl-8">
                                 <p>{{ $product->brand->name }}</p>
@@ -84,7 +76,7 @@
                             <label for="price"
                                 class="col-md-3 text-md-right col-form-label">Giá</label>
                             <div class="col-md-9 col-xl-8">
-                                <p>{{ $product->price }} vnđ</p>
+                                <p>{{ number_format($product->price, 0, '', ',') }}₫</p>
                             </div>
                         </div>
 

@@ -22,13 +22,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->get();
     }
 
-    public function getFeatureProductsByCategory(int $categoryId)
-    {
-        return $this->model->where('category_id', $categoryId)
-            ->orderBy('id', 'asc')
-            ->get();
-    }
-
     public function getProductOnIndex($request)
     {
 
@@ -58,28 +51,27 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         $perPage = $request->show ?? 3;
         $sortBy = $request->sort_by ?? 'lastest';
-
         switch ($sortBy) {
             case 'lastest':
-                $products = $products->orderBy('id');
+                $products = $products->where('quantity', '>', 0)->orderBy('id');
                 break;
             case 'oldest':
-                $products = $products->orderByDesc('id');
+                $products = $products->where('quantity', '>', 0)->orderByDesc('id');
                 break;
             case 'name-ascending':
-                $products = $products->orderBy('name');
+                $products = $products->where('quantity', '>', 0)->orderBy('name');
                 break;
             case 'name-descending':
-                $products = $products->orderByDesc('name');
+                $products = $products->where('quantity', '>', 0)->orderByDesc('name');
                 break;
             case 'price-ascending':
-                $products = $products->orderBy('price');
+                $products = $products->where('quantity', '>', 0)->orderBy('price');
                 break;
             case 'price-descending':
-                $products = $products->orderByDesc('price');
+                $products = $products->where('quantity', '>', 0)->orderByDesc('price');
                 break;
             default:
-                $products = $products->orderBy('id');
+                $products = $products->where('quantity', '>', 0)->orderBy('id');
         }
 
         $products = $products->paginate($perPage);
@@ -95,28 +87,16 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $brand_ids = array_keys($brands);
         $products = $brand_ids != null ? $products->whereIn('brand_id', $brand_ids) : $products;
 
-        $priceMin = $request->price_min;
-        $priceMax = $request->price_max;
-        $priceMin = str_replace('$', '', $priceMin);
-        $priceMax = str_replace('$', '', $priceMax);
-        $products = ($priceMin != null && $priceMax != null)
-            ? $products->whereBetween('price', [$priceMin, $priceMax])
-            : $products;
-
         $color = $request->color;
         $products = $color != null
-            ? $products->whereHas('productDetails', function ($query) use ($color) {
-                return $query->where('color', $color)
-                    ->where('quantity', '>', 0);
-            })
+            ?  $products->where('color', $color)
+            ->where('quantity', '>', 0)
             : $products;
 
         $size = $request->size;
         $products = $size != null
-            ? $products->whereHas('productDetails', function ($query) use ($size) {
-                return $query->where('size', $size)
-                    ->where('quantity', '>', 0);
-            })
+            ? $products->where('size', $size)
+            ->where('quantity', '>', 0)
             : $products;
 
         return $products;

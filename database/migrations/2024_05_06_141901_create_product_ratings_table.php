@@ -17,9 +17,12 @@ return new class extends Migration
             $table->string('email');
             $table->integer('rating');
             $table->text('evaluate');
-            $table->integer('user_id')->unsigned();
-            $table->integer('product_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

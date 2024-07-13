@@ -30,7 +30,7 @@
                             <label for="name" class="col-md-3 text-md-right col-form-label">Tên sản phẩm</label>
                             <div class="col-md-9 col-xl-8">
                                 <input disabled placeholder="Tên sản phẩm" type="text"
-                                    class="form-control" value="Calvin Klein">
+                                    class="form-control" value="{{ $product->name }}">
                             </div>
                         </div>
 

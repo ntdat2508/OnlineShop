@@ -51,8 +51,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $data['quantity'] = 0;
+        $data = $request->validate([
+            'color' => 'required|string',
+            'size' => 'required|string',
+            'name' => 'required|string',
+            'quantity' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:1000',
+            'tag' => 'required|string',
+            'description' => 'required',
+        ]);
         $product = $this->productService->create($data);
         return redirect('admin/product/' . $product->id);
     }
@@ -94,7 +101,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'color' => 'required|string',
+            'size' => 'required|string',
+            'name' => 'required|string',
+            'quantity' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:1000',
+            'tag' => 'required|string',
+            'description' => 'required',
+        ]);
         $this->productService->update($data, $id);
 
         return redirect('admin/product/' . $id);
