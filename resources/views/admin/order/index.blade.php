@@ -45,21 +45,23 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left mr-3">
-                                                        <div class="widget-content-left">
-                                                            <img style="height: 60px;"
-                                                                data-toggle="tooltip" title="Hình ảnh"
-                                                                data-placement="bottom"
-                                                                src="{{ $order->orderDetails[0]->product->productImages[0]->path }}" alt="">
-                                                        </div>
+                                                        @if (isset($order->orderDetails[0]->product->productImages[0]))
+                                                            <div class="widget-content-left">
+                                                                <img style="height: 60px;" data-toggle="tooltip" title="Hình ảnh"
+                                                                     data-placement="bottom" src="{{ $order->orderDetails[0]->product->productImages[0]->path }}" alt="">
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                     <div class="widget-content-left flex2">
                                                         <div class="widget-heading">{{ $order->name }}</div>
-                                                        <div class="widget-subheading opacity-7">
-                                                            {{ $order->orderDetails[0]->product->name }} ({{ displayColor($order->orderDetails[0]->product->color) }}, {{ $order->orderDetails[0]->product->size }})
-                                                            @if (count($order->orderDetails) > 1)
-                                                                (và {{ count($order->orderDetails) }} sản phẩm khác)
-                                                            @endif
-                                                        </div>
+                                                        @if (isset($order->orderDetails[0]))
+                                                            <div class="widget-subheading opacity-7">
+                                                                {{ $order->orderDetails[0]->product->name }} ({{ displayColor($order->orderDetails[0]->product->color) }}, {{ $order->orderDetails[0]->product->size }})
+                                                                @if (count($order->orderDetails) > 1)
+                                                                    (và {{ count($order->orderDetails) }} sản phẩm khác)
+                                                                @endif
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -73,12 +75,10 @@
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <a href="./admin/order/{{ $order->id }}"
-                                                class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
+                                            <a href="./admin/order/{{ $order->id }}" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
                                                 Chi tiết
                                             </a>
-                                            <a href="./admin/order/{{ $order->id }}/edit" title="Cập nhật"
-                                                class="btn btn-outline-warning border-0 btn-sm">
+                                            <a href="./admin/order/{{ $order->id }}/edit" title="Cập nhật" class="btn btn-outline-warning border-0 btn-sm">
                                                 <span class="btn-icon-wrapper opacity-8">
                                                     <i class="fa fa-edit fa-w-20"></i>
                                                 </span>
