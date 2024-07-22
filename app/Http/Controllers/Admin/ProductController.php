@@ -52,6 +52,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+            'brand_id' => 'required',
+            'category_id' => 'required',
             'color' => 'required|string',
             'size' => 'required|string',
             'name' => 'required|string',
@@ -102,6 +104,8 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
+            'brand_id' => 'required',
+            'category_id' => 'required',
             'color' => 'required|string',
             'size' => 'required|string',
             'name' => 'required|string',
